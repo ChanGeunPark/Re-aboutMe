@@ -41,7 +41,13 @@ function Box({ color }) {
     (state, delta) => {
       //delta = 랜더링 이후 경과된 시간
       time.current += delta * 1.2;
-      let newZ = position.z - time.current;
+      let newZ = position.z - time.current; //초기 위치값에서 타이머 값을 뺀 값
+
+      if (newZ < -10) {
+        // 값이 마이너스 10단위보다 낮으면 리셋
+        resetPosition();
+        time.current = 2;
+      }
 
       box.current.position.set(position.x, position.y, newZ);
       box.current.rotation.x += delta * xRotSpeed;
@@ -51,7 +57,7 @@ function Box({ color }) {
   );
 
   return (
-    <mesh ref={box} scale={scale} castShadow>
+    <mesh ref={box} scale={scale} onPointerEnter={(boxes) => {}} castShadow>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={color} envMapIntensity={0.15} />
     </mesh>
