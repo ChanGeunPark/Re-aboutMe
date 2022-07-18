@@ -18,12 +18,6 @@ export function Ground() {
     normal.encoding = LinearEncoding;
   }, [normal, roughness]);
 
-  useFrame((state, delta) => {
-    let t = -state.clock.getElapsedTime() * 0.128;
-    normal.offset.set(0, t);
-    roughness.offset.set(0, t);
-  });
-
   return (
     <mesh rotation-x={-Math.PI * 0.5} castShadow receiveShadow>
       <planeBufferGeometry args={[30, 30]} />

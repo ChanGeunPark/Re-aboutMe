@@ -2,6 +2,7 @@ import { RoundedBox } from "@react-three/drei";
 import { forwardRef } from "react";
 
 export const Block = forwardRef(
+  // react 컴포넌트에 ref prop을 넘겨서 그 내부에 있는 HTML 엘리먼트에 접근을 하게 해주는 함수
   (
     {
       children,
