@@ -66,8 +66,35 @@ export default function Home() {
               <PointCircle />
             </Physics>
 
-            <Html as="div" center className="w-screen h-screen">
-              <article>
+            {/* <Text
+              position={[0, 0, 0]}
+              scale={[18, 18, 18]}
+              onPointerEnter={(me) => {
+                setClupLight(true);
+              }}
+              onPointerLeave={() => {
+                setClupLight(false);
+              }}
+              font="/fonts/Pretendard-Bold.ttf"
+              anchorX="center"
+              anchorY="middle"
+              castShadow
+              receiveShadow
+            >
+              박찬근
+            </Text>
+            <Text
+              position={[0, -1.2, 0]}
+              scale={[5, 5, 5]}
+              font="/fonts/Pretendard-Regular.ttf"
+              anchorX="center"
+              anchorY="middle"
+            >
+              Park Chan Geun
+            </Text> */}
+
+            <Html center>
+              <article className="w-screen h-screen">
                 <div className="container mx-auto h-full relative">
                   <h2 className="absolute left-1/2 bottom-1/3 -translate-x-1/2 text-zinc-200 pointer-events-none">
                     배우고 경험하고 도전하고 싶은게 너무 많은 개발자
@@ -186,14 +213,13 @@ function Pointer() {
     position: [0, 0, 0],
   }));
 
-  return useFrame((state) => {
-    //console.log(state.mouse);
+  return useFrame((state) =>
     api.position.set(
       (state.mouse.x * viewport.width) / 2, // 마우스 whith 위치
       (state.mouse.y * viewport.height) / 2, // 마우스 height 위치
       0
-    );
-  });
+    )
+  );
 }
 
 function PointCircle({
