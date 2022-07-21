@@ -4,6 +4,7 @@ import { usePlane, Physics, useSphere, useBox } from "@react-three/cannon";
 import { Suspense, useEffect, useRef, useState } from "react";
 import {
   Box,
+  Effects,
   Html,
   Plane,
   RoundedBox,
@@ -19,13 +20,7 @@ import { TextureLoader } from "three";
 import { Vector3 } from "three";
 
 const rfs = THREE.MathUtils.randFloatSpread; //여러 수학 유틸리티 기능이 있는 개체입니다. [- 범위 /2, 범위 /2] random
-const sphereGeometry = new THREE.BoxGeometry(1, 1, 1);
-const baubleMaterial = new THREE.MeshStandardMaterial({
-  color: "green",
-  roughness: 1,
-  envMapIntensity: 1,
-  // emissive: "#370037",
-});
+
 const oneBaubleMaterial = new THREE.MeshStandardMaterial({
   color: "white",
   roughness: 1,
@@ -34,10 +29,18 @@ const oneBaubleMaterial = new THREE.MeshStandardMaterial({
 const oneSphereGeometry = new THREE.SphereGeometry(0.3, 32, 32);
 
 export default function Home() {
+  const [boxTexture, setBoxTexture] = useState(1);
+  function changBox() {
+    setBoxTexture(boxTexture + 1);
+    if (boxTexture > 2) {
+      setBoxTexture(1);
+    }
+  }
+
   return (
     <Suspense fallback={null}>
       <main className="w-full min-h-screen bg-zinc-800 pt-[89px] relative">
-        <section className="absolute w-full h-screen top-0 left-0 z-30">
+        <section className="fixed w-full h-screen top-0 left-0 z-30">
           <Canvas
             shadows
             dpr={[1, 2]} //Canvas 크기와 화면에 표시(디스플레이) 되는 크기는 다르며, 디스플레이 크기는 DPR의 영향을 받는다
@@ -60,74 +63,74 @@ export default function Home() {
             />
             <Physics>
               <Name scale={[2.5, 2.5, 2.5]} />
-              <Clump />
+              <Clump boxtexture={boxTexture} />
               <Pointer />
               <CenterSphere />
               <PointCircle />
             </Physics>
-
-            <Html as="div" center className="w-screen h-screen">
-              <article>
-                <div className="container mx-auto h-full relative">
-                  <h2 className="absolute left-1/2 bottom-1/3 -translate-x-1/2 text-zinc-200 pointer-events-none">
-                    배우고 경험하고 도전하고 싶은게 너무 많은 개발자
-                    박찬근입니다
-                  </h2>
-                  <button
-                    type="button"
-                    className="absolute right-1/4 top-1/4 text-zinc-500"
+            <Html
+              as="div"
+              center
+              className="w-screen h-screen relative"
+              position-z={0}
+            >
+              <h2 className="absolute left-1/2 bottom-1/3 -translate-x-1/2 text-zinc-200 pointer-events-none">
+                배우고 경험하고 도전하고 싶은게 너무 많은 개발자 박찬근입니다
+              </h2>
+              <button
+                type="button"
+                className="absolute right-1/4 top-1/4 text-zinc-500"
+                onClick={changBox}
+              >
+                <div className="flex flex-col justify-center items-center space-y-3">
+                  <span className="flex h-5 w-5 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-300 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-5 w-5 bg-zinc-800 border border-zinc-700 "></span>
+                  </span>
+                  <span>CLICK</span>
+                </div>
+              </button>
+              <div className="flex items-center absolute right-0 translate-x-[40%] rotate-90 z-20 bottom-40">
+                <span className="text-zinc-400 mr-2">Park Chan Geun</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="36.214"
+                  className="stroke-zinc-300"
+                  height="6.927"
+                  viewBox="0 0 36.214 6.927"
+                >
+                  <path
+                    id="arrow1"
+                    data-name="arrow1"
+                    d="M1717.5,832.471v34.458l-5.72-6.047"
+                    transform="translate(-831.971 1718) rotate(-90)"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeWidth="1"
+                    opacity="0.485"
+                  />
+                </svg>
+              </div>
+              <div className=" absolute left-0 z-20 bottom-1/4 flex flex-col space-y-2 pointer-events-auto">
+                <span className="border w-12 h-12 text-white rounded-lg border-zinc-500 flex justify-center items-center">
+                  {/* github */}
+                  <a
+                    target="_blank"
+                    href="https://github.com/ChanGeunPark"
+                    className=" text-zinc-500"
                   >
-                    <div className="flex flex-col justify-center items-center space-y-3">
-                      <span className="flex h-5 w-5 relative">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-300 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-5 w-5 bg-zinc-800 border border-zinc-700 "></span>
-                      </span>
-                      <span>CLICK</span>
-                    </div>
-                  </button>
-                  <div className="flex items-center absolute right-0 translate-x-[40%] rotate-90 z-20 bottom-40">
-                    <span className="text-zinc-400 mr-2">Park Chan Geun</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="36.214"
-                      className="stroke-zinc-300"
-                      height="6.927"
-                      viewBox="0 0 36.214 6.927"
+                      className="fill-zinc-500"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
                     >
-                      <path
-                        id="arrow1"
-                        data-name="arrow1"
-                        d="M1717.5,832.471v34.458l-5.72-6.047"
-                        transform="translate(-831.971 1718) rotate(-90)"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeWidth="1"
-                        opacity="0.485"
-                      />
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                     </svg>
-                  </div>
-                  <div className=" absolute left-0 z-20 bottom-1/4 flex flex-col space-y-2 pointer-events-auto">
-                    <span className="border w-12 h-12 text-white rounded-lg border-zinc-500 flex justify-center items-center">
-                      {/* github */}
-                      <a
-                        target="_blank"
-                        href="https://github.com/ChanGeunPark"
-                        className=" text-zinc-500"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="fill-zinc-500"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </article>
+                  </a>
+                </span>
+              </div>
             </Html>
           </Canvas>
         </section>
@@ -155,6 +158,7 @@ function PointerLight() {
   //   // ref.current.matrix.position;
   // }, []);
   useFrame((state) => {
+    // console.log(state.mouse);
     ref.current.position.set(
       (state.mouse.x * viewport.width) / 2,
       (state.mouse.y * viewport.height) / 2,
@@ -168,8 +172,10 @@ function PointerLight() {
   return (
     <pointLight
       ref={ref}
-      intensity={10}
-      color={"green"}
+      position={[33, 13, 3]}
+      intensity={5}
+      distance={5}
+      color={"#fcd34d"}
       castShadow
       receiveShadow
     />
@@ -201,6 +207,18 @@ function PointCircle({
   vec = new THREE.Vector3(),
   ...props
 }) {
+  const [color, roughness, normal, ao] = useLoader(TextureLoader, [
+    "/textures/pointCircle/coral_fort_wall_01_diff_1k.jpeg",
+    "/textures/pointCircle/coral_fort_wall_01_rough_1k.jpeg",
+    "/textures/pointCircle/coral_fort_wall_01_nor_gl_1k.jpeg",
+    "/textures/pointCircle/coral_fort_wall_01_ao_1k.jpeg",
+  ]);
+
+  oneBaubleMaterial.map = color;
+  oneBaubleMaterial.roughnessMap = roughness;
+  oneBaubleMaterial.normalMap = normal;
+  oneBaubleMaterial.aoMap = ao;
+
   const [ref, api] = useSphere(() => ({
     args: [1],
     mass: 1,
@@ -252,11 +270,36 @@ function Clump({
   vec = new THREE.Vector3(),
   ...props
 }) {
-  const [normal, roughness, color] = useLoader(TextureLoader, [
-    "/textures/mainShpere/brown_mud_leaves_01_nor_gl_2k.jpeg",
-    "/textures/mainShpere/brown_mud_leaves_01_rough_2k.jpeg",
-    "/textures/mainShpere/brown_mud_leaves_01_diff_2k.jpeg",
+  const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+  const sphereGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+  const baubleMaterial = new THREE.MeshStandardMaterial({
+    roughness: 1,
+    envMapIntensity: 1,
+    // emissive: "#370037",
+  });
+
+  const [
+    normal,
+    roughness,
+    color,
+    normal2,
+    roughness2,
+    color2,
+    normal3,
+    roughness3,
+    color3,
+  ] = useLoader(TextureLoader, [
+    "/textures/mainBoxs/brown_mud_leaves_01_nor_gl_2k.jpeg",
+    "/textures/mainBoxs/brown_mud_leaves_01_rough_2k.jpeg",
+    "/textures/mainBoxs/brown_mud_leaves_01_diff_2k.jpeg",
+    "/textures/mainBoxs/floor_tiles_06_nor_gl_1k.jpeg",
+    "/textures/mainBoxs/floor_tiles_06_rough_1k.jpeg",
+    "/textures/mainBoxs/floor_tiles_06_diff_1k.jpeg",
+    "/textures/mainBoxs/brick_4_nor_gl_1k.jpeg",
+    "/textures/mainBoxs/brick_4_rough_1k.jpeg",
+    "/textures/mainBoxs/brick_4_diff_1k.jpeg",
   ]);
+
   const [ref, api] = useBox(() => ({
     //args: [1], // 중력을 적용할 오브젝트의 크기
     mass: 1, // 중력을 얼마나 적용할건지
@@ -264,6 +307,7 @@ function Clump({
     linearDamping: 0.65, //슬로우
     position: [rfs(20), rfs(20), rfs(20)], //20 / 2 의 랜덤의 숫자
   }));
+
   useFrame((state) => {
     for (let i = 0; i < 30; i++) {
       // Get current whereabouts of the instanced sphere
@@ -283,9 +327,34 @@ function Clump({
     }
   });
 
-  baubleMaterial.normalMap = normal;
-  baubleMaterial.roughnessMap = roughness;
-  baubleMaterial.map = color;
+  if (props.boxtexture == 1) baubleMaterial.color.set("#34d19c");
+  if (props.boxtexture == 2) baubleMaterial.color.set("#a359f7");
+  if (props.boxtexture == 3) baubleMaterial.color.set("#ee4445");
+
+  baubleMaterial.normalMap =
+    props.boxtexture == 1
+      ? normal
+      : props.boxTexture == 2
+      ? normal2
+      : props.boxTexture == 3
+      ? normal3
+      : null;
+  baubleMaterial.roughnessMap =
+    props.boxtexture == 1
+      ? roughness
+      : props.boxtexture == 2
+      ? roughness2
+      : props.boxtexture == 3
+      ? roughness3
+      : null;
+  baubleMaterial.map =
+    props.boxtexture == 1
+      ? color
+      : props.boxtexture == 2
+      ? color2
+      : props.boxtexture == 3
+      ? color3
+      : null;
 
   return (
     <>
@@ -294,7 +363,11 @@ function Clump({
         castShadow
         receiveShadow
         args={[null, null, 30]}
-        geometry={sphereGeometry}
+        geometry={
+          props.boxtexture == 1 || props.boxtexture == 3
+            ? boxGeometry
+            : sphereGeometry
+        }
         material={baubleMaterial}
       />
     </>
