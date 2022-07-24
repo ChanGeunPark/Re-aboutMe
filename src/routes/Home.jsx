@@ -18,6 +18,7 @@ import { Name } from "../components/name/Name";
 import { Ground } from "../components/car/Ground";
 import { TextureLoader } from "three";
 import { Vector3 } from "three";
+import AboutMe from "../components/AboutMe";
 
 const rfs = THREE.MathUtils.randFloatSpread; //여러 수학 유틸리티 기능이 있는 개체입니다. [- 범위 /2, 범위 /2] random
 
@@ -26,7 +27,7 @@ const oneBaubleMaterial = new THREE.MeshStandardMaterial({
   roughness: 1,
   envMapIntensity: 1,
 }); // 포인트 마테리얼
-const oneSphereGeometry = new THREE.SphereGeometry(0.3, 32, 32);
+const oneSphereGeometry = new THREE.SphereGeometry(0.6, 32, 32);
 
 export default function Home() {
   const [boxTexture, setBoxTexture] = useState(1);
@@ -39,13 +40,14 @@ export default function Home() {
 
   return (
     <Suspense fallback={null}>
-      <main className="w-full min-h-screen bg-zinc-800 pt-[89px] relative">
-        <section className="fixed w-full h-screen top-0 left-0 z-30">
+      <main className="w-full min-h-screen bg-[#28292E] relative z-10">
+        <section className="w-full h-screen relative">
           <Canvas
             shadows
             dpr={[1, 2]} //Canvas 크기와 화면에 표시(디스플레이) 되는 크기는 다르며, 디스플레이 크기는 DPR의 영향을 받는다
-            camera={{ position: [0, 0, 20], fov: 35, near: 10, far: 40 }}
+            camera={{ position: [0, 1, 20], fov: 35, near: 10, far: 40 }}
           >
+            <fog attach="fog" args={["#28292E", 12, 11]}></fog>
             <ambientLight intensity={0.24} />
             <spotLight
               intensity={1}
@@ -74,6 +76,7 @@ export default function Home() {
               className="w-screen h-screen relative"
               position-z={0}
             >
+              <span className="w-full block absolute top-0 left-0 bg-gradient-to-t to-zinc-900 from-transparent h-[200px] pointer-events-none z-10"></span>
               <h2 className="absolute left-1/2 bottom-1/3 -translate-x-1/2 text-zinc-200 pointer-events-none">
                 배우고 경험하고 도전하고 싶은게 너무 많은 개발자 박찬근입니다
               </h2>
@@ -90,49 +93,56 @@ export default function Home() {
                   <span>CLICK</span>
                 </div>
               </button>
-              <div className="flex items-center absolute right-0 translate-x-[40%] rotate-90 z-20 bottom-40">
-                <span className="text-zinc-400 mr-2">Park Chan Geun</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="36.214"
-                  className="stroke-zinc-300"
-                  height="6.927"
-                  viewBox="0 0 36.214 6.927"
-                >
-                  <path
-                    id="arrow1"
-                    data-name="arrow1"
-                    d="M1717.5,832.471v34.458l-5.72-6.047"
-                    transform="translate(-831.971 1718) rotate(-90)"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeWidth="1"
-                    opacity="0.485"
-                  />
-                </svg>
-              </div>
-              <div className=" absolute left-0 z-20 bottom-1/4 flex flex-col space-y-2 pointer-events-auto">
-                <span className="border w-12 h-12 text-white rounded-lg border-zinc-500 flex justify-center items-center">
-                  {/* github */}
-                  <a
-                    target="_blank"
-                    href="https://github.com/ChanGeunPark"
-                    className=" text-zinc-500"
+
+              <article className="container absolute bottom-20 left-1/2 -translate-x-1/2">
+                <div className="flex items-center absolute right-0 translate-x-[40%] rotate-90 z-20 bottom-20">
+                  <span className="text-zinc-400 mr-2">Park Chan Geun</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="36.214"
+                    className="stroke-zinc-300"
+                    height="6.927"
+                    viewBox="0 0 36.214 6.927"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="fill-zinc-500"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
+                    <path
+                      id="arrow1"
+                      data-name="arrow1"
+                      d="M1717.5,832.471v34.458l-5.72-6.047"
+                      transform="translate(-831.971 1718) rotate(-90)"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeWidth="1"
+                      opacity="0.485"
+                    />
+                  </svg>
+                </div>
+                <div className=" absolute left-0 z-20 bottom-1/4 flex flex-col space-y-2 pointer-events-auto">
+                  <span className="border w-12 h-12 text-white rounded-lg border-zinc-500 flex justify-center items-center">
+                    {/* github */}
+                    <a
+                      target="_blank"
+                      href="https://github.com/ChanGeunPark"
+                      className=" text-zinc-500"
                     >
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                    </svg>
-                  </a>
-                </span>
-              </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="fill-zinc-500"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                      </svg>
+                    </a>
+                  </span>
+                </div>
+              </article>
+              <span className="block w-full h-[100px] bg-gradient-to-t to-transparent from-[#28292E] absolute left-0 bottom-0 pointer-events-none z-20"></span>
             </Html>
           </Canvas>
+        </section>
+        <section className="bg-[#28292D] relative min-h-screen flex items-center aboutMeMain">
+          <AboutMe />
         </section>
       </main>
     </Suspense>
@@ -327,32 +337,32 @@ function Clump({
     }
   });
 
-  if (props.boxtexture == 1) baubleMaterial.color.set("#34d19c");
-  if (props.boxtexture == 2) baubleMaterial.color.set("#a359f7");
-  if (props.boxtexture == 3) baubleMaterial.color.set("#ee4445");
+  if (props.boxtexture === 1) baubleMaterial.color.set("#81cb23");
+  if (props.boxtexture === 2) baubleMaterial.color.set("#a359f7");
+  if (props.boxtexture === 3) baubleMaterial.color.set("#ee4445");
 
   baubleMaterial.normalMap =
-    props.boxtexture == 1
+    props.boxtexture === 1
       ? normal
-      : props.boxTexture == 2
+      : props.boxTexture === 2
       ? normal2
-      : props.boxTexture == 3
+      : props.boxTexture === 3
       ? normal3
       : null;
   baubleMaterial.roughnessMap =
-    props.boxtexture == 1
+    props.boxtexture === 1
       ? roughness
-      : props.boxtexture == 2
+      : props.boxtexture === 2
       ? roughness2
-      : props.boxtexture == 3
+      : props.boxtexture === 3
       ? roughness3
       : null;
   baubleMaterial.map =
-    props.boxtexture == 1
+    props.boxtexture === 1
       ? color
-      : props.boxtexture == 2
+      : props.boxtexture === 2
       ? color2
-      : props.boxtexture == 3
+      : props.boxtexture === 3
       ? color3
       : null;
 
@@ -364,7 +374,7 @@ function Clump({
         receiveShadow
         args={[null, null, 30]}
         geometry={
-          props.boxtexture == 1 || props.boxtexture == 3
+          props.boxtexture === 1 || props.boxtexture === 3
             ? boxGeometry
             : sphereGeometry
         }

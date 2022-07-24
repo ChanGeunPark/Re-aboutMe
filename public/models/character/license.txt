@@ -1,0 +1,11 @@
+Model Information:
+* title:	Sketch Scratch, Fiction Master
+* source:	https://sketchfab.com/3d-models/sketch-scratch-fiction-master-701df71e55e24bf1874d84db0ff73339
+* author:	Javier Da Rosa (https://sketchfab.com/Javier_Da_Rosa)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Sketch Scratch, Fiction Master" (https://sketchfab.com/3d-models/sketch-scratch-fiction-master-701df71e55e24bf1874d84db0ff73339) by Javier Da Rosa (https://sketchfab.com/Javier_Da_Rosa) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

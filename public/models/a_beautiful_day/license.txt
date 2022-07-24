@@ -1,0 +1,11 @@
+Model Information:
+* title:	A beautiful day
+* source:	https://sketchfab.com/3d-models/a-beautiful-day-7757924274114f12b253daea2b02f2e7
+* author:	Jazzi Crystol (https://sketchfab.com/JazziCrystol)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "A beautiful day" (https://sketchfab.com/3d-models/a-beautiful-day-7757924274114f12b253daea2b02f2e7) by Jazzi Crystol (https://sketchfab.com/JazziCrystol) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
