@@ -414,7 +414,6 @@ function Rig({ children }) {
   const vec = new THREE.Vector3();
   const { camera, mouse } = useThree();
   const windowWidth = window.innerWidth;
-  console.log(windowWidth);
   let widthDepth = 0;
   if (windowWidth > 770) widthDepth = 2.6;
   if (windowWidth > 1200) widthDepth = 3;
