@@ -12,6 +12,47 @@ export default function Headers() {
   const menuOpen = () => {
     open ? setOpen(false) : setOpen(true);
   };
+
+  const homeScroll = () => {
+    gsap.to(window, {
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTo: 0,
+    });
+  };
+
+  const aboutMeScroll = () => {
+    gsap.to(window, {
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTo: ".aboutMeMain",
+    });
+  };
+
+  const experienceScroll = () => {
+    gsap.to(window, {
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTo: ".experienceMain",
+    });
+  };
+
+  const storyScroll = () => {
+    gsap.to(window, {
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTo: ".storyMain",
+    });
+  };
+
+  const contactMeScroll = () => {
+    gsap.to(window, {
+      duration: 1.5,
+      ease: "power3.out",
+      scrollTo: "#contactMeMain",
+    });
+  };
+
   return (
     <div className="w-full top-0 left-0 z-50 px-3 fixed h-0">
       <section className="container flex items-center h-[80px] mx-auto justify-between relative z-50">
@@ -150,19 +191,34 @@ export default function Headers() {
         </button>
 
         <nav className="w-full grid grid-cols-1 text-left space-y-6 menus">
-          <button className="homeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left">
+          <button
+            onClick={homeScroll}
+            className="homeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+          >
             HOME
           </button>
-          <button className="aboutMeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left">
+          <button
+            onClick={aboutMeScroll}
+            className="aboutMeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+          >
             AOUBT ME
           </button>
-          <button className="experienceMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left">
+          <button
+            onClick={experienceScroll}
+            className="experienceMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+          >
             EXPERIENCE
           </button>
-          <button className="storyMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left">
+          <button
+            onClick={storyScroll}
+            className="storyMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+          >
             STORY
           </button>
-          <button className="contactMeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left">
+          <button
+            onClick={contactMeScroll}
+            className="contactMeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+          >
             CONTACT ME
           </button>
         </nav>

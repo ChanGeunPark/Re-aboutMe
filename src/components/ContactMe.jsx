@@ -121,26 +121,7 @@ export default function ContectMe() {
       <div className="absolute left-1/2 -translate-x-1/2 bottom-3 text-zinc-300 text-center resize-none">
         <span>design795@naver.com</span>
       </div>
-      <div className="absolute left-0 top-0 w-full h-full">
-        <Canvas className="border">
-          {/* <ambientLight intensity={0.24} /> */}
-          {/* <spotLight
-            intensity={1}
-            angle={0.2}
-            penumbra={1} // 스포트라이트의 원뿔의 백분율 0과 1사이값
-            position={[30, 30, 30]}
-            castShadow
-            shadow-mapSize={[512, 512]} // 얼마나 그림자를 줄건지 작성해줘야한다.
-          /> */}
-          {/* <directionalLight
-            intensity={0.2}
-            position={[-10, -10, -10]}
-            color="white"
-          /> */}
-          <perspectiveCamera position={(0, 0, 4)} />
-          {/* <CatBackground /> */}
-        </Canvas>
-      </div>
+      {/* <div className="absolute left-0 top-0 w-full h-full"></div> */}
     </article>
   );
 }
