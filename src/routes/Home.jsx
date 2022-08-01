@@ -60,16 +60,16 @@ export default function Home() {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="w-full h-screen flex absolute left-0 top-0 items-center flex-col justify-center bg-[#28292E]">
-            <Lottie animationData={loadingAnimation} loop={true} />
-            <h2 className="text-white text-xl -mt-5">Loading...</h2>
-          </div>
-        }
-      >
-        <CustomCursor />
-        <main className="w-full min-h-screen bg-[#28292E] relative z-10">
+      <CustomCursor />
+      <main className="w-full min-h-screen bg-[#28292E] relative z-10">
+        <Suspense
+          fallback={
+            <div className="w-full h-screen flex absolute left-0 top-0 items-center flex-col justify-center bg-[#28292E]">
+              <Lottie animationData={loadingAnimation} loop={true} />
+              <h2 className="text-white text-xl -mt-5">Loading...</h2>
+            </div>
+          }
+        >
           <section className="w-full h-screen relative z-20">
             <Canvas
               shadows
@@ -177,29 +177,30 @@ export default function Home() {
               </Html>
             </Canvas>
           </section>
-          <section className="bg-[#28292D] relative min-h-screen flex items-center aboutMeMain">
-            <AboutMe />
-            <span className="absolute right-0 top-1/2 -translate-y-1/2 z-0">
-              <img
-                src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/2df8ffb4-eb06-4938-b481-5d40a7db5600/public"
-                alt="background"
-              />
-              {/* background object */}
-            </span>
-            <span className="absolute left-0 top-0 -translate-x-[20px] px-3">
-              <img
-                src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/4a10e52f-302c-4f7b-6ac2-b4ecd8a1e400/public"
-                alt="background"
-              />
-              {/* background object dotted*/}
-            </span>
-          </section>
-          <Experience />
-          <MyStory />
-          <Challenge />
-          <ContectMe />
-        </main>
-      </Suspense>
+        </Suspense>
+
+        <section className="bg-[#28292D] relative min-h-screen flex items-center aboutMeMain">
+          <AboutMe />
+          <span className="absolute right-0 top-1/2 -translate-y-1/2 z-0">
+            <img
+              src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/2df8ffb4-eb06-4938-b481-5d40a7db5600/public"
+              alt="background"
+            />
+            {/* background object */}
+          </span>
+          <span className="absolute left-0 top-0 -translate-x-[20px] px-3">
+            <img
+              src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/4a10e52f-302c-4f7b-6ac2-b4ecd8a1e400/public"
+              alt="background"
+            />
+            {/* background object dotted*/}
+          </span>
+        </section>
+        <Experience />
+        <MyStory />
+        <Challenge />
+        <ContectMe />
+      </main>
     </>
   );
 }
