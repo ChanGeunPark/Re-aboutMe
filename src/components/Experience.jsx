@@ -16,9 +16,12 @@ import swiperCore, {
 import { experience } from "../data/myexperience";
 import SwiperButtonPrev from "./SwipeButtonPrev";
 import SwiperButtonNext from "./SwipeButtonNext";
+import CustomCursorContext from "./CustomCursor/context/CustomCursorContext";
 
 gsap.registerPlugin(ScrollTrigger);
 export default function Experience() {
+  const { setType } = useContext(CustomCursorContext);
+
   useEffect(() => {
     gsap.to(".years", {
       opacity: 1,
@@ -316,14 +319,24 @@ export default function Experience() {
                         </p>
                         <div className="text-white space-x-9 mt-10 absolute left-0 bottom-0 expLink1">
                           {experience.siteUrl1 ? (
-                            <a href={experience.siteUrl1} target="_blank">
+                            <a
+                              href={experience.siteUrl1}
+                              target="_blank"
+                              onMouseOver={() => setType("link")}
+                              onMouseOut={() => setType("default")}
+                            >
                               VIEW SITE +
                             </a>
                           ) : (
                             ""
                           )}
                           {experience.githubUrl1 ? (
-                            <a href={experience.githubUrl1} target="_blank">
+                            <a
+                              href={experience.githubUrl1}
+                              target="_blank"
+                              onMouseOver={() => setType("link")}
+                              onMouseOut={() => setType("default")}
+                            >
                               GITHUB +
                             </a>
                           ) : (
@@ -357,14 +370,24 @@ export default function Experience() {
                         </p>
                         <div className="text-white space-x-9 mt-10 absolute left-0 bottom-0 expLink2">
                           {experience.siteUrl2 ? (
-                            <a href={experience.siteUrl2} target="_blank">
+                            <a
+                              href={experience.siteUrl2}
+                              target="_blank"
+                              onMouseOver={() => setType("link")}
+                              onMouseOut={() => setType("default")}
+                            >
                               VIEW SITE +
                             </a>
                           ) : (
                             ""
                           )}
                           {experience.githubUrl2 ? (
-                            <a href={experience.githubUrl2} target="_blank">
+                            <a
+                              href={experience.githubUrl2}
+                              target="_blank"
+                              onMouseOver={() => setType("link")}
+                              onMouseOut={() => setType("default")}
+                            >
                               GITHUB +
                             </a>
                           ) : (

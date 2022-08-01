@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cosmonaut Morse
+* source:	https://sketchfab.com/3d-models/cosmonaut-morse-c4d4975db3a947ef9d04ae42b190ba8f
+* author:	Vanya Mazalevich (https://sketchfab.com/VanyaMazalevich)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cosmonaut Morse" (https://sketchfab.com/3d-models/cosmonaut-morse-c4d4975db3a947ef9d04ae42b190ba8f) by Vanya Mazalevich (https://sketchfab.com/VanyaMazalevich) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

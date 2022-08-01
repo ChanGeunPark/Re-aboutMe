@@ -75,7 +75,7 @@ const MyStory = () => {
         <section className="grid grid-cols-1 sm:grid-cols-12 mt-16">
           <div className="sm:col-span-5 lg:col-span-3 relative h-[445px] overflow-hidden rounded-lg">
             <img
-              src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/b6e2c402-6868-42c3-bbc0-47bd09ad2f00/public"
+              src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/eb2406c0-a43a-4ae5-778b-e8e6e5f40300/middle"
               className="w-full h-full object-cover scale-100 transition-all duration-700 hover:scale-105"
               alt="나의 사진"
             />

@@ -3,11 +3,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Home from "../routes/Home";
+import CustomCursorContext from "./CustomCursor/context/CustomCursorContext";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function Headers() {
+  const { setType } = useContext(CustomCursorContext);
   const [open, setOpen] = useState(false); //메뉴오픈
   const menuOpen = () => {
     open ? setOpen(false) : setOpen(true);
@@ -145,7 +147,14 @@ export default function Headers() {
           </span>
         </h1>
 
-        <button type="button" onClick={menuOpen}>
+        <button
+          type="button"
+          onClick={menuOpen}
+          onMouseOver={() => {
+            setType("link");
+          }}
+          onMouseOut={() => setType("default")}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8 stroke-white"
@@ -173,6 +182,10 @@ export default function Headers() {
           type="button"
           onClick={menuOpen}
           className="absolute left-12 top-12"
+          onMouseOver={() => {
+            setType("link");
+          }}
+          onMouseOut={() => setType("default")}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -190,40 +203,45 @@ export default function Headers() {
           </svg>
         </button>
 
-        <nav className="w-full grid grid-cols-1 text-left space-y-6 menus">
+        <nav className="w-full grid grid-cols-1 text-left menus">
           <button
             onClick={homeScroll}
-            className="homeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+            className="homeMenu text-3xl px-2 py-3 font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left relative group"
           >
-            HOME
+            <span className="absolute transition-all duration-500 left-0 top-0 block h-full w-0 bg-white group-hover:w-full"></span>
+            <span className="relative z-10">HOME</span>
           </button>
           <button
             onClick={aboutMeScroll}
-            className="aboutMeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+            className="aboutMeMenu px-2 py-3 text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left relative group"
           >
-            AOUBT ME
+            <span className="absolute transition-all duration-500 left-0 top-0 block h-full w-0 bg-white group-hover:w-full"></span>
+            <span className="relative z-10">AOUBT ME</span>
           </button>
           <button
             onClick={experienceScroll}
-            className="experienceMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+            className="experienceMenu px-2 py-3 text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left relative group"
           >
-            EXPERIENCE
+            <span className="absolute transition-all duration-500 left-0 top-0 block h-full w-0 bg-white group-hover:w-full"></span>
+            <span className="relative z-10">EXPERIENCE</span>
           </button>
           <button
             onClick={storyScroll}
-            className="storyMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+            className="storyMenu px-2 py-3 text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left relative group"
           >
-            STORY
+            <span className="absolute transition-all duration-500 left-0 top-0 block h-full w-0 bg-white group-hover:w-full"></span>
+            <span className="relative z-10">STORY</span>
           </button>
           <button
             onClick={contactMeScroll}
-            className="contactMeMenu text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left"
+            className="contactMeMenu px-2 py-3 text-3xl font-bold text-zinc-300 hover:text-orange-400 transition-all duration-500 text-left relative group"
           >
-            CONTACT ME
+            <span className="absolute transition-all duration-500 left-0 top-0 block h-full w-0 bg-white group-hover:w-full"></span>
+            <span className="relative z-10">CONTACT ME</span>
           </button>
         </nav>
 
-        <p className=" absolute left-12 bottom-12 text-zinc-400 text-sm">
+        <p className=" absolute px-2 py-3 left-12 bottom-12 text-zinc-400 text-sm">
           ©2022 PARKCHANGEUN <br />
           ALL RIGHTS RESERVED
         </p>

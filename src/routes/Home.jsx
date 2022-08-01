@@ -1,7 +1,14 @@
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { usePlane, Physics, useSphere, useBox } from "@react-three/cannon";
-import { Suspense, useEffect, useRef, useState } from "react";
+import {
+  Suspense,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Box,
   Effects,
@@ -10,6 +17,7 @@ import {
   RoundedBox,
   Sky,
   Sparkles,
+  Stars,
   Text,
   useTexture,
 } from "@react-three/drei";
@@ -23,9 +31,13 @@ import Experience from "../components/Experience";
 import MyStory from "../components/Mystory";
 import ContectMe from "../components/ContactMe";
 import Challenge from "../components/Challenge";
-import lottie from "lottie-web";
 import Lottie from "lottie-react";
 import loadingAnimation from "../lottie/loading.json";
+import niceColors from "nice-color-palettes";
+import { Caractor } from "../components/name/Caractor";
+import CustomCursor from "../components/CustomCursor/CustomCursor";
+import CustomCursorContext from "../components/CustomCursor/context/CustomCursorContext";
+import CustomCursorManager from "../components/CustomCursor/context/manager";
 
 const rfs = THREE.MathUtils.randFloatSpread; //여러 수학 유틸리티 기능이 있는 개체입니다. [- 범위 /2, 범위 /2] random
 
@@ -44,25 +56,28 @@ export default function Home() {
       setBoxTexture(1);
     }
   }
+  const { setType } = useContext(CustomCursorContext); //마우스 효과변경
 
   return (
     <>
       <Suspense
         fallback={
-          <div className="w-full h-screen flex items-center flex-col justify-center bg-[#28292E]">
+          <div className="w-full h-screen flex absolute left-0 top-0 items-center flex-col justify-center bg-[#28292E]">
             <Lottie animationData={loadingAnimation} loop={true} />
             <h2 className="text-white text-xl -mt-5">Loading...</h2>
           </div>
         }
       >
+        <CustomCursor />
         <main className="w-full min-h-screen bg-[#28292E] relative z-10">
-          <section className="w-full h-screen relative">
+          <section className="w-full h-screen relative z-20">
             <Canvas
               shadows
               dpr={[1, 2]} //Canvas 크기와 화면에 표시(디스플레이) 되는 크기는 다르며, 디스플레이 크기는 DPR의 영향을 받는다
-              camera={{ position: [0, 1, 20], fov: 35, near: 10, far: 40 }}
+              camera={{ position: [0, 1, 20], fov: 35, near: 10, far: 1000 }}
             >
-              <fog attach="fog" args={["#28292E", 12, 11]}></fog>
+              <Stars />
+              {/* <fog attach="fog" args={["#28292E", 12, 11]}></fog> */}
               <ambientLight intensity={0.24} />
               <spotLight
                 intensity={1}
@@ -73,18 +88,21 @@ export default function Home() {
                 shadow-mapSize={[512, 512]} // 얼마나 그림자를 줄건지 작성해줘야한다.
               />
               <PointerLight />
+
               <directionalLight
                 intensity={0.2}
                 position={[-10, -10, -10]}
                 color="white"
               />
               <Physics>
-                <Name scale={[2.5, 2.5, 2.5]} />
+                <MainModel />
+
                 <Clump boxtexture={boxTexture} />
                 <Pointer />
                 <CenterSphere />
                 <PointCircle />
               </Physics>
+
               <Html
                 as="div"
                 center
@@ -92,13 +110,15 @@ export default function Home() {
                 position-z={0}
               >
                 <span className="w-full block absolute top-0 left-0 bg-gradient-to-t to-zinc-900 from-transparent h-[200px] pointer-events-none z-10"></span>
-                <h2 className="absolute left-1/2 bottom-1/3 -translate-x-1/2 text-zinc-200 pointer-events-none">
+                <h2 className="absolute left-1/2 bottom-1/4 -translate-x-1/2 text-zinc-200 pointer-events-none">
                   배우고 경험하고 도전하고 싶은게 너무 많은 개발자 박찬근입니다
                 </h2>
 
                 <button
                   type="button"
                   className="absolute right-1/4 top-1/4 text-zinc-500"
+                  onMouseOver={() => setType("link")}
+                  onMouseOut={() => setType("default")}
                   onClick={changBox}
                 >
                   <div className="flex flex-col justify-center items-center space-y-3">
@@ -184,10 +204,26 @@ export default function Home() {
   );
 }
 
+function MainModel() {
+  const mainModel = useRef(null); //메인 3d 모델
+  useFrame((state) => {
+    if (state.mouse.x > -0.9 && state.mouse.y < 0.9) {
+      mainModel.current.rotation.y = Math.PI * state.mouse.x * 0.3;
+      mainModel.current.rotation.x = -Math.PI * state.mouse.y * 0.2;
+    }
+  });
+  return (
+    <group ref={mainModel}>
+      <Name scale={[1, 1, 1]} />
+      <Caractor />
+    </group>
+  );
+}
+
 function CenterSphere() {
   const [, centerSphere] = useSphere(() => ({
     type: "Kinematic",
-    args: [3],
+    args: [4],
     color: ["#fff"],
     position: [0, 0, 0],
   }));
@@ -220,7 +256,7 @@ function PointerLight() {
       position={[33, 13, 3]}
       intensity={5}
       distance={5}
-      color={"#fcd34d"}
+      color={"#ffffff"}
       castShadow
       receiveShadow
     />
@@ -232,7 +268,7 @@ function Pointer() {
 
   const [, api] = useSphere(() => ({
     type: "Kinematic",
-    args: [4],
+    args: [5],
     color: ["#fff"],
     position: [0, 0, 0],
   }));
@@ -288,9 +324,25 @@ function PointCircle({
       ); // 중력을 중앙
   });
 
+  const tempObject = new THREE.Object3D();
+  const tempColor = new THREE.Color();
+  const data = Array.from({ length: 1000 }, () => ({
+    color: niceColors[17][Math.floor(Math.random() * 5)],
+    scale: 1,
+  }));
+
+  const colorArray = useMemo(
+    () =>
+      Float32Array.from(
+        new Array(1000)
+          .fill()
+          .flatMap((_, i) => tempColor.set(data[i].color).toArray())
+      ),
+    []
+  );
+
   return (
     <>
-      {/* <pointLight ref={lightRef} color={"blue"} /> */}
       <instancedMesh //threejs의 메쉬랑 마테리얼을 가져올 수 있다.
         ref={ref}
         castShadow
@@ -298,14 +350,15 @@ function PointCircle({
         args={[null, null, 1]}
         geometry={oneSphereGeometry}
         material={oneBaubleMaterial}
-      />
-      {/* <Sparkles
-          count={29}
-          size={20}
-          position={[0, 0.9, 0]}
-          scale={[4, 1.5, 4]}
-          speed={0.3}
-        /> */}
+      >
+        {/* <boxGeometry args={[0.6, 0.6, 0.6]}>
+          <instancedBufferGeometry
+            attach={"attributes-color"}
+            args={([colorArray], 3)}
+          />
+        </boxGeometry>
+        <meshBasicMaterial toneMapped={false} vertexColors /> */}
+      </instancedMesh>
     </>
   );
 } // 포인트 구슬
@@ -354,7 +407,7 @@ function Clump({
   }));
 
   useFrame((state) => {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 20; i++) {
       // Get current whereabouts of the instanced sphere
       ref.current.getMatrixAt(i, mat);
       // Normalize the position and multiply by a negative force.
@@ -407,12 +460,13 @@ function Clump({
         ref={ref}
         castShadow
         receiveShadow
-        args={[null, null, 30]}
+        args={[null, null, 20]}
         geometry={
           props.boxtexture === 1 || props.boxtexture === 3
             ? boxGeometry
             : sphereGeometry
         }
+        onPointerMove={(e) => e.stopPropagation()}
         material={baubleMaterial}
       />
     </>
