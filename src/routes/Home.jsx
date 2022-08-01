@@ -60,146 +60,135 @@ export default function Home() {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="w-full h-screen flex absolute left-0 top-0 items-center flex-col justify-center bg-[#28292E]">
-            <Lottie animationData={loadingAnimation} loop={true} />
-            <h2 className="text-white text-xl -mt-5">Loading...</h2>
-          </div>
-        }
-      >
+      <div className="bg-[#28292E]">
         <CustomCursor />
-        <main className="w-full min-h-screen bg-[#28292E] relative z-10">
-          <section className="w-full h-screen relative z-20">
-            <Canvas
-              shadows
-              dpr={[1, 2]} //Canvas 크기와 화면에 표시(디스플레이) 되는 크기는 다르며, 디스플레이 크기는 DPR의 영향을 받는다
-              camera={{ position: [0, 1, 20], fov: 35, near: 10, far: 1000 }}
-            >
-              <Stars />
-              {/* <fog attach="fog" args={["#28292E", 12, 11]}></fog> */}
-              <ambientLight intensity={0.24} />
-              <spotLight
-                intensity={1}
-                angle={0.2}
-                penumbra={1} // 스포트라이트의 원뿔의 백분율 0과 1사이값
-                position={[30, 30, 30]}
-                castShadow
-                shadow-mapSize={[512, 512]} // 얼마나 그림자를 줄건지 작성해줘야한다.
-              />
-              <PointerLight />
-
-              <directionalLight
-                intensity={0.2}
-                position={[-10, -10, -10]}
-                color="white"
-              />
-              <Physics>
-                <MainModel />
-
-                <Clump boxtexture={boxTexture} />
-                <Pointer />
-                <CenterSphere />
-                <PointCircle />
-              </Physics>
-
-              <Html
-                as="div"
-                center
-                className="w-screen h-screen relative"
-                position-z={0}
+        <div className="h-screen w-full relative">
+          <Suspense
+            fallback={
+              <div className="w-full h-screen flex absolute left-0 top-0 items-center flex-col justify-center bg-[#28292E]">
+                <Lottie animationData={loadingAnimation} loop={true} />
+                <h2 className="text-white text-xl -mt-5">Loading...</h2>
+              </div>
+            }
+          >
+            <section className="w-full h-screen relative z-20">
+              <Canvas
+                shadows
+                dpr={[1, 2]} //Canvas 크기와 화면에 표시(디스플레이) 되는 크기는 다르며, 디스플레이 크기는 DPR의 영향을 받는다
+                camera={{ position: [0, 1, 20], fov: 35, near: 10, far: 1000 }}
               >
-                <span className="w-full block absolute top-0 left-0 bg-gradient-to-t to-zinc-900 from-transparent h-[200px] pointer-events-none z-10"></span>
-                <h2 className="absolute left-1/2 bottom-1/4 -translate-x-1/2 text-zinc-200 pointer-events-none">
-                  배우고 경험하고 도전하고 싶은게 너무 많은 개발자 박찬근입니다
-                </h2>
+                <Stars />
+                {/* <fog attach="fog" args={["#28292E", 12, 11]}></fog> */}
+                <ambientLight intensity={0.24} />
+                <spotLight
+                  intensity={1}
+                  angle={0.2}
+                  penumbra={1} // 스포트라이트의 원뿔의 백분율 0과 1사이값
+                  position={[30, 30, 30]}
+                  castShadow
+                  shadow-mapSize={[512, 512]} // 얼마나 그림자를 줄건지 작성해줘야한다.
+                />
+                <PointerLight />
 
-                <button
-                  type="button"
-                  className="absolute right-1/4 top-1/4 text-zinc-500"
-                  onMouseOver={() => setType("link")}
-                  onMouseOut={() => setType("default")}
-                  onClick={changBox}
+                <directionalLight
+                  intensity={0.2}
+                  position={[-10, -10, -10]}
+                  color="white"
+                />
+                <Physics>
+                  <MainModel />
+
+                  <Clump boxtexture={boxTexture} />
+                  <Pointer />
+                  <CenterSphere />
+                  <PointCircle />
+                </Physics>
+
+                <Html
+                  as="div"
+                  center
+                  className="w-screen h-screen relative"
+                  position-z={0}
                 >
-                  <div className="flex flex-col justify-center items-center space-y-3">
-                    <span className="flex h-5 w-5 relative">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-300 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-5 w-5 bg-zinc-800 border border-zinc-700 "></span>
-                    </span>
-                    <span>CLICK</span>
-                  </div>
-                </button>
+                  <span className="w-full block absolute top-0 left-0 bg-gradient-to-t to-zinc-900 from-transparent h-[200px] pointer-events-none z-10"></span>
+                  <h2 className="absolute left-1/2 bottom-1/4 -translate-x-1/2 text-zinc-200 pointer-events-none">
+                    배우고 경험하고 도전하고 싶은게 너무 많은 개발자
+                    박찬근입니다
+                  </h2>
 
-                <article className="container absolute bottom-20 left-1/2 -translate-x-1/2">
-                  <div className="flex items-center absolute right-0 translate-x-[40%] rotate-90 z-20 bottom-20">
-                    <span className="text-zinc-400 mr-2">Park Chan Geun</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="36.214"
-                      className="stroke-zinc-300"
-                      height="6.927"
-                      viewBox="0 0 36.214 6.927"
-                    >
-                      <path
-                        id="arrow1"
-                        data-name="arrow1"
-                        d="M1717.5,832.471v34.458l-5.72-6.047"
-                        transform="translate(-831.971 1718) rotate(-90)"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeWidth="1"
-                        opacity="0.485"
-                      />
-                    </svg>
-                  </div>
-                  <div className=" absolute left-0 z-20 bottom-1/4 flex flex-col space-y-2 pointer-events-auto">
-                    <span className="border w-12 h-12 text-white rounded-lg border-zinc-500 flex justify-center items-center">
-                      {/* github */}
-                      <a
-                        target="_blank"
-                        href="https://github.com/ChanGeunPark"
-                        className=" text-zinc-500"
+                  <button
+                    type="button"
+                    className="absolute right-1/4 top-1/4 text-zinc-500"
+                    onMouseOver={() => setType("link")}
+                    onMouseOut={() => setType("default")}
+                    onClick={changBox}
+                  >
+                    <div className="flex flex-col justify-center items-center space-y-3">
+                      <span className="flex h-5 w-5 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-300 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-5 w-5 bg-zinc-800 border border-zinc-700 "></span>
+                      </span>
+                      <span>CLICK</span>
+                    </div>
+                  </button>
+
+                  <article className="container absolute bottom-20 left-1/2 -translate-x-1/2">
+                    <div className="flex items-center absolute right-0 translate-x-[40%] rotate-90 z-20 bottom-20">
+                      <span className="text-zinc-400 mr-2">Park Chan Geun</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="36.214"
+                        className="stroke-zinc-300"
+                        height="6.927"
+                        viewBox="0 0 36.214 6.927"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="fill-zinc-500"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
+                        <path
+                          id="arrow1"
+                          data-name="arrow1"
+                          d="M1717.5,832.471v34.458l-5.72-6.047"
+                          transform="translate(-831.971 1718) rotate(-90)"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeWidth="1"
+                          opacity="0.485"
+                        />
+                      </svg>
+                    </div>
+                    <div className=" absolute left-0 z-20 bottom-1/4 flex flex-col space-y-2 pointer-events-auto">
+                      <span className="border w-12 h-12 text-white rounded-lg border-zinc-500 flex justify-center items-center">
+                        {/* github */}
+                        <a
+                          target="_blank"
+                          href="https://github.com/ChanGeunPark"
+                          className=" text-zinc-500"
                         >
-                          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                        </svg>
-                      </a>
-                    </span>
-                  </div>
-                </article>
-                <span className="block w-full h-[100px] bg-gradient-to-t to-transparent from-[#28292E] absolute left-0 bottom-0 pointer-events-none z-20"></span>
-              </Html>
-            </Canvas>
-          </section>
-          <section className="bg-[#28292D] relative min-h-screen flex items-center aboutMeMain">
-            <AboutMe />
-            <span className="absolute right-0 top-1/2 -translate-y-1/2 z-0">
-              <img
-                src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/2df8ffb4-eb06-4938-b481-5d40a7db5600/public"
-                alt="background"
-              />
-              {/* background object */}
-            </span>
-            <span className="absolute left-0 top-0 -translate-x-[20px] px-3">
-              <img
-                src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/4a10e52f-302c-4f7b-6ac2-b4ecd8a1e400/public"
-                alt="background"
-              />
-              {/* background object dotted*/}
-            </span>
-          </section>
-          <Experience />
-          <MyStory />
-          <Challenge />
-          <ContectMe />
-        </main>
-      </Suspense>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="fill-zinc-500"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                          </svg>
+                        </a>
+                      </span>
+                    </div>
+                  </article>
+                  <span className="block w-full h-[100px] bg-gradient-to-t to-transparent from-[#28292E] absolute left-0 bottom-0 pointer-events-none z-20"></span>
+                </Html>
+              </Canvas>
+            </section>
+          </Suspense>
+        </div>
+
+        <AboutMe />
+
+        <Experience />
+        <MyStory />
+        <Challenge />
+        <ContectMe />
+      </div>
     </>
   );
 }
