@@ -237,6 +237,14 @@ export default function AboutMe() {
               </span>
               <span className="mr-2 h-[40px] overflow-hidden rounded-md mb-2">
                 <img
+                  src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/2d1c667f-cd32-4882-0438-4fdd83435c00/avatar"
+                  layout="fixed"
+                  alt="threejs"
+                  className="h-[40px]"
+                />
+              </span>
+              <span className="mr-2 h-[40px] overflow-hidden rounded-md mb-2">
+                <img
                   src="https://imagedelivery.net/anvL-_ABM0Z5KQo2YmJX4g/c8547cf7-cd89-4574-9dac-d608ff96f500/avatar"
                   layout="fixed"
                   alt="html"

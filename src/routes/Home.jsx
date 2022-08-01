@@ -369,7 +369,7 @@ function Clump({
   ...props
 }) {
   const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-  const sphereGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+  const sphereGeometry = new THREE.SphereGeometry(0.65, 32, 32);
   const baubleMaterial = new THREE.MeshStandardMaterial({
     roughness: 1,
     envMapIntensity: 1,
@@ -390,12 +390,12 @@ function Clump({
     "/textures/mainBoxs/brown_mud_leaves_01_nor_gl_2k.jpeg",
     "/textures/mainBoxs/brown_mud_leaves_01_rough_2k.jpeg",
     "/textures/mainBoxs/brown_mud_leaves_01_diff_2k.jpeg",
-    "/textures/mainBoxs/floor_tiles_06_nor_gl_1k.jpeg",
-    "/textures/mainBoxs/floor_tiles_06_rough_1k.jpeg",
-    "/textures/mainBoxs/floor_tiles_06_diff_1k.jpeg",
-    "/textures/mainBoxs/brick_4_nor_gl_1k.jpeg",
-    "/textures/mainBoxs/brick_4_rough_1k.jpeg",
-    "/textures/mainBoxs/brick_4_diff_1k.jpeg",
+    "/textures/moon/textures/MoonDust_normal.png",
+    "/textures/moon/textures/MoonDust_metallicRoughness.png",
+    "/textures/moon/textures/MoonDust_baseColor.png",
+    "/textures/moon/textures/Corridor_normal.png",
+    "/textures/moon/textures/Corridor_metallicRoughness.png",
+    "/textures/moon/textures/Corridor_baseColor.png",
   ]);
 
   const [ref, api] = useBox(() => ({
@@ -407,7 +407,7 @@ function Clump({
   }));
 
   useFrame((state) => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 25; i++) {
       // Get current whereabouts of the instanced sphere
       ref.current.getMatrixAt(i, mat);
       // Normalize the position and multiply by a negative force.
@@ -426,8 +426,8 @@ function Clump({
   });
 
   if (props.boxtexture === 1) baubleMaterial.color.set("#81cb23");
-  if (props.boxtexture === 2) baubleMaterial.color.set("#a359f7");
-  if (props.boxtexture === 3) baubleMaterial.color.set("#ee4445");
+  if (props.boxtexture === 2) baubleMaterial.color.set("#e1e5e9");
+  if (props.boxtexture === 3) baubleMaterial.color.set("#5cc5dd");
 
   baubleMaterial.normalMap =
     props.boxtexture === 1
@@ -460,7 +460,7 @@ function Clump({
         ref={ref}
         castShadow
         receiveShadow
-        args={[null, null, 20]}
+        args={[null, null, 25]}
         geometry={
           props.boxtexture === 1 || props.boxtexture === 3
             ? boxGeometry
